@@ -2,13 +2,26 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import logo from '../pic.png';
 import cathay_logo from '../cathay_logo.svg';
+import { useNavigate } from "react-router-dom"
 import './Lucky_draw.css';
 
 const LuckyDraw = (props) => {
     //const [prizes, setPrizes] = useState(props.prizes)
+    let [chance, setChance] = useState(5)
+
+    let navigate = useNavigate();
+
+    const clickHandler = () => {
+        setChance(chance - 1);
+        navigate("/result");
+        console.log(chance);
+    }
+
     const prizeItems = props.prizes.map((prize) =>
         <Card.Text>- {prize}</Card.Text>
     );
+
+
     return (
         <div>
             <Container fluid="md">
@@ -32,9 +45,9 @@ const LuckyDraw = (props) => {
                     </Card.Body>
                 </Card>
                 <Row>
-                    <Col>Lottery chances:</Col>
+                    <Col>Lottery chances: {chance}</Col>
                 </Row>
-                <Button>Draw</Button>
+                <Button onClick={clickHandler}>Draw</Button>
             </Container>
         </div>
     );
