@@ -1,0 +1,8 @@
+.congrats-message{
+  position: relative;
+  width: 320px;
+  display: block;
+  margin: 40px auto;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+}
