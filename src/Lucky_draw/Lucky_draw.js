@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import logo from '../pic.png';
 import cathay_logo from '../cathay_logo.svg';
+import iphone from '../iphone13.jpg'
+import headphone from '../headphone.jpg'
+import apple_watch from '../apple_watch.jpg'
 import { useNavigate } from "react-router-dom"
 import './Lucky_draw.css';
 
@@ -11,28 +14,11 @@ const LuckyDraw = (props) => {
     let navigate = useNavigate();
 
     const [chance, setChance] = useState(localStorage.getItem('chance') || 5);
-    /* 
-    useEffect(() => {
-        const clickHandler = () => {
-            setChance(4);
-            navigate("/result");
-            console.log(chance);
-        };
-    });
-
-    function usePersistedState(key, defaultValue) {
-        const [chance, setChance] = useState(localStorage.getItem('chance') || defaultValue);
-        useEffect(() => {
-            localStorage.setItem(key, chance);
-        }, [key, chance]);
-        return [chance, setChance];
-    }
-    */
 
     const clickHandler = () => {
         setChance(chance - 1);
         localStorage.setItem('chance', chance - 1)
-        navigate("/result");
+        navigate("/loading");
     };
 
     const returnHandler = () => {
@@ -57,32 +43,38 @@ const LuckyDraw = (props) => {
     return (
         <div>
             <Container fluid="md">
-                <Row></Row>
-                <Row></Row>
                 <Row>
                     <Col>
                         <img className="cathay_logo" src={cathay_logo} alt="Cathay Pacific" />
                     </Col>
                 </Row>
                 <Row>
-                    <Col>LUCKY DRAW</Col>
+                    <Col className="text">LUCKY DRAW</Col>
                 </Row>
-                <Card>
-                    <Card.Img className="logo" src={logo} />
-                    <Card.Title>
-                        Prizes include:
-                    </Card.Title>
-                    <Card.Body>
-                        {prizeItems}
-                    </Card.Body>
-                </Card>
                 <Row>
-                    <Col>Lottery chances: {chance}</Col>
+                    <Col className="text">Top Prizes:</Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <img className="prize-image" src={headphone} alt="headphone" />
+                        <h3 className="prize-text">{props.prizes[0]}</h3>
+                    </Col>
+                    <Col>
+                        <img className="prize-image" src={iphone} alt="iphone" />
+                        <h3 className="prize-text">{props.prizes[1]}</h3>
+                    </Col>
+                    <Col>
+                        <img className="prize-image" src={apple_watch} alt="apple_watch" />
+                        <h3 className="prize-text">{props.prizes[2]}</h3>
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <Col className="text">Lottery chances: {chance}</Col>
                 </Row>
                 <div>
                     {chance == 0
-                        ? <Button onClick={returnHandler}>Shop more to have lucky draw</Button>
-                        : <Button onClick={clickHandler}>Draw</Button>
+                        ? <Button className="draw-button" onClick={returnHandler}>Retry demo</Button>
+                        : <Button className="draw-button" onClick={clickHandler}>Draw</Button>
                     }
                 </div>
             </Container>
